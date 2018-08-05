@@ -1,0 +1,90 @@
+all:
+  hosts:
+    labctl1:
+      ansible_hostname: labctl1
+    labctl2:
+      ansible_hostname: labctl2
+    labctl3:
+      ansible_hostname: labctl3
+    labcomp1:
+      ansible_hostname: labcomp1
+    labcomp2:
+      ansible_hostname: labcomp2
+    labnet1:
+      ansible_hostname: labnet1
+    labnet2:
+      ansible_hostname: labnet2
+    labceph1:
+      ansible_hostname: labceph1
+    labceph2:
+      ansible_hostname: labceph2
+    labceph3:
+      ansible_hostname: labceph3
+    labceph4:
+      ansible_hostname: labceph4
+    labceph5:
+      ansible_hostname: labceph5
+    labceph6:
+      ansible_hostname: labceph6
+    labrgw1:
+      ansible_hostname: labrgw1
+    labrgw2:
+      ansible_hostname: labrgw2
+  vars:
+    ansible_user: root
+    ansible_become: yes
+  children:
+    openstack:
+      children:
+        ctls:
+          hosts:
+            labctl1:
+            labctl2:
+            labctl3:
+          vars:
+            dummy_var: 'dummy'
+        comps:
+          hosts:
+            labcomp1:
+            labcomp2:
+          vars:
+            dummy_var: 'dummy'
+        nets:
+          hosts:
+            labnet1:
+            labnet2:
+          vars:
+            dummy_var: 'dummy'
+    cephs:
+      hosts:
+        labceph1:
+        labceph2:
+        labceph3:
+        labceph4:
+        labceph5:
+        labceph6:
+        labrgw1:
+        labrgw2:
+      vars:
+        dummy_var: 'dummy'
+      children:
+        mons:
+          hosts:
+            labceph1:
+            labceph2:
+            labceph3:
+          vars:
+            dummy_var: 'dummy'
+        osds:
+          hosts:
+            labceph4:
+            labceph5:
+            labceph6:
+          vars:
+            dummy_var: 'dummy'
+        rgws:
+          hosts:
+            labrgw1:
+            labrgw2:
+          vars:
+            dummy_var: 'dummy'
