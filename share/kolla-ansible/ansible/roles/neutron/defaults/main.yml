@@ -63,7 +63,8 @@ neutron_services:
     environment:
       KOLLA_CONFIG_STRATEGY: "{{ config_strategy }}"
       NEUTRON_BRIDGE: "br-ex"
-      NEUTRON_INTERFACE: "{{ neutron_external_interface }}"
+      #NEUTRON_INTERFACE: "{{ neutron_external_interface }}"
+      NEUTRON_INTERFACE: "dummy_if"
     host_in_groups: >-
       {{
       inventory_hostname in groups['compute']

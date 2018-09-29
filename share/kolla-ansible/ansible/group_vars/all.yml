@@ -151,24 +151,36 @@ network_interface: "eth0"
 #Modified by - Ram Meena
 #neutron_external_interface: "eth1"
 #neutron_external_interface: "int_core,ext_core" #orig working
-neutron_external_interface: "int_core" #orig working modified by ram, for setting up int bridge
-neutron_int_interface: "ext_core" #modified by ram, for setting up int bridge
+#neutron_external_interface: "pub_core, ext_core" #orig working modified by ram, for setting up int bridge
+neutron_public_interface: "pub_core" #orig working modified by ram, for setting up int bridge
+neutron_dmz_interface: "dmz_core" #orig working modified by ram, for setting up int bridge
+neutron_internal_interface: "int_core1, int_core2" #modified by ram, for setting up int bridge
 #
-#neutron_bridge_name: "br-ex,br_trunk"    #modified by ram #orig working
-neutron_bridge_name: "br-ex"    #modified by ram, for setting up int bridge
-neutron_int_bridge_name: "br_trunk"    #modified by ram
+neutron_public_ovs_bridge_name: "br-pub_core"    #modified by ram, for setting up int bridge
+neutron_dmz_ovs_bridge_name: "br-dmz_core"    #modified by ram, for setting up int bridge
+neutron_internal_ovs_bridge_name: "br_int_core1,br-int_core2"    #modified by ram
+#neutron_external_ovs_bridge_name: "br-pub_core,br-ext_core"    #modified by ram, for setting up int bridge
 enable_vlan: true
 #
 vlan_provider_names: 
-  - vlan_net1
+  - dmz_core
+  - int_core1
+  - int_core2
 
 flat_provider_names: 
-  - flat_net1
+  - pub_core
+
+#all_net_providers:
+#  br-ex: flat_net1
+#  br_trunk: vlan_net1
+#  br-a: provider_net1
+#  br-b: provider_net2
 
 all_net_providers:
-  br-ex: flat_net1
-  br_trunk: vlan_net1
-
+  br-pub_core: pub_core
+  br-dmz_core: dmz_core
+  br_int_core1: int_core1
+  br-int_core2: int_core2
 #RUNNING HANDLER [openvswitch : Ensuring OVS bridge is properly setup] **************************************************************
 #ok: [labcomp1] => (item=[u'br-ex', u'int_core'])
 #ok: [labnet1] => (item=[u'br-ex', u'int_core'])
@@ -654,7 +666,8 @@ neutron_type_drivers: "flat,vlan,vxlan"
 # NOTE: for ironic this list should also contain 'flat'
 neutron_tenant_network_types: "vxlan"
 
-computes_need_external_bridge: "{{ enable_neutron_dvr | bool or enable_neutron_provider_networks | bool or enable_opendaylight | bool and neutron_plugin_agent != 'vmware_dvs' }}"
+#modified by ram
+#computes_need_external_bridge: "{{ enable_neutron_dvr | bool or enable_neutron_provider_networks | bool or enable_opendaylight | bool and neutron_plugin_agent != 'vmware_dvs' }}"
 
 #######################
 # Nova options
