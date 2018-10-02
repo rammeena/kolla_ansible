@@ -31,11 +31,11 @@
     host: "{{ api_interface_address }}"
     port: "{{ mariadb_port }}"
     connect_timeout: 1
-    timeout: 60
+    timeout: 90
     search_regex: "MariaDB"
   register: check_mariadb_port
   until: check_mariadb_port | success
-  retries: 10
+  retries: 20
   delay: 6
   when:
     - bootstrap_host is defined
@@ -72,11 +72,11 @@
     host: "{{ api_interface_address }}"
     port: "{{ mariadb_port }}"
     connect_timeout: 1
-    timeout: 60
+    timeout: 90
     search_regex: "MariaDB"
   register: check_mariadb_port
   until: check_mariadb_port | success
-  retries: 10
+  retries: 20
   delay: 6
   when:
     - action != "config"
@@ -113,11 +113,11 @@
     host: "{{ api_interface_address }}"
     port: "{{ mariadb_port }}"
     connect_timeout: 1
-    timeout: 60
+    timeout: 90
     search_regex: "MariaDB"
   register: check_mariadb_port
   until: check_mariadb_port | success
-  retries: 10
+  retries: 20
   delay: 6
   when:
     - action != "config"

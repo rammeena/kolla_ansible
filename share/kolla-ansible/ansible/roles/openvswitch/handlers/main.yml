@@ -23,8 +23,9 @@
 
   notify:
     - Waiting for openvswitch_db service to be ready
-    - Ensuring OVS bridge is properly setup
-    - Ensuring OVS Internal bridge is properly setup #modified by ram
+    - Ensuring Public OVS bridge is properly setup
+    - Ensuring DMZ OVS bridge is properly setup
+    - Ensuring OVS Internal bridge is properly setup
 
 - name: Waiting for openvswitch_db service to be ready
   command: docker exec openvswitch_db ovs-vsctl --no-wait show
