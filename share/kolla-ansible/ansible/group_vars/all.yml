@@ -147,19 +147,20 @@ notify_transport_url: "{{ om_notify_transport }}://{% for host in groups[om_noti
 ####################
 # Networking options
 ####################
-network_interface: "eth0"
+#network_interface: "eth0"
 #Modified by - Ram Meena
-#neutron_external_interface: "eth1"
-#neutron_external_interface: "int_core,ext_core" #orig working
-#neutron_external_interface: "pub_core, ext_core" #orig working modified by ram, for setting up int bridge
-neutron_public_interface: "pub_core" #orig working modified by ram, for setting up int bridge
-neutron_dmz_interface: "dmz_core" #orig working modified by ram, for setting up int bridge
-neutron_internal_interface: "int_core1, int_core2" #modified by ram, for setting up int bridge
 #
-neutron_public_ovs_bridge_name: "br-pub_core"    #modified by ram, for setting up int bridge
-neutron_dmz_ovs_bridge_name: "br-dmz_core"    #modified by ram, for setting up int bridge
-neutron_internal_ovs_bridge_name: "br_int_core1,br-int_core2"    #modified by ram
-#neutron_external_ovs_bridge_name: "br-pub_core,br-ext_core"    #modified by ram, for setting up int bridge
+neutron_public_interface: "pub_core"
+neutron_dmz_interface: "dmz_core"
+neutron_internal_interface: "int_core1, int_core2"
+neutron_optional_external_interface: "ext_core"
+#
+neutron_public_ovs_bridge_name: "br-pub_core"
+neutron_dmz_ovs_bridge_name: "br-dmz_core"
+neutron_internal_ovs_bridge_name: "br_int_core1,br-int_core2"
+neutron_optional_external_ovs_bridge_name: "br-ext_core"
+#
+#
 enable_vlan: true
 #
 vlan_provider_names: 

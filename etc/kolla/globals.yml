@@ -18,7 +18,7 @@ kolla_base_distro: "centos"
 kolla_install_type: "source"
 
 # Valid option is Docker repository tag
-openstack_release: "rocky"
+openstack_release: "queens"
 
 # Location of configuration overrides
 #node_custom_config: "/etc/kolla/config"
@@ -207,7 +207,7 @@ enable_kafka: "yes"
 #enable_manila: "no"
 #enable_manila_backend_generic: "no"
 #enable_manila_backend_hnas: "no"
-#enable_manila_backend_cephfs_native: "no"
+enable_manila_backend_cephfs_native: "yes"
 #enable_manila_backend_cephfs_nfs: "no"
 #enable_mistral: "no"
 #enable_monasca: "no"
@@ -307,8 +307,8 @@ keystone_admin_project: "admin"
 # Glance - Image Options
 ########################
 # Configure image backend.
-#glance_backend_ceph: "no"
-glance_backend_file: "yes"
+glance_backend_ceph: "yes"
+#glance_backend_file: "no"
 #glance_backend_swift: "no"
 #glance_backend_vmware: "no"
 # Configure glance upgrade option, due to this feature is experimental
@@ -338,7 +338,7 @@ glance_enable_rolling_upgrade: "no"
 # Gnocchi options
 #################
 # Valid options are [ file, ceph ]
-#gnocchi_backend_storage: "{{ 'ceph' if enable_ceph|bool else 'file' }}"
+gnocchi_backend_storage: "yes"
 
 # Valid options are [redis, '']
 #gnocchi_incoming_storage: "{{ 'redis' if enable_redis | bool else '' }}"
@@ -347,7 +347,7 @@ glance_enable_rolling_upgrade: "no"
 # Cinder - Block Storage Options
 ################################
 # Enable / disable Cinder backends
-#cinder_backend_ceph: "{{ enable_ceph }}"
+cinder_backend_ceph: "yes"
 #cinder_backend_vmwarevc_vmdk: "no"
 cinder_volume_group: "cinder-volumes"
 
@@ -367,7 +367,7 @@ cinder_volume_group: "cinder-volumes"
 ########################
 # Nova - Compute Options
 ########################
-#nova_backend_ceph: "{{ enable_ceph }}"
+nova_backend_ceph: "yes"
 
 # Valid options are [ qemu, kvm, vmware, xenapi ]
 nova_compute_virt_type: "kvm"

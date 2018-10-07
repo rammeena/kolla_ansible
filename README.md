@@ -1,31 +1,18 @@
-Its a Full working branch with all core components alongwith
-monitoring stack, components are below:
-1. Keystone
-2. Glance
-3. Nova
-4. Neutron
-5. Cinder
-6. Heat
-7. Elasticsearch => rocky image does not work, so tag has to be changed to queens release
-8. Kibana => rocky image does not work, so tag has to be changed to queens release
-9. fluentd
-10. telegraf
-11. redis
-12. memcached
-13. mariadb
-14. rabbitmq
-15. etcd
+This kolla-ansible branch install openstack Queens with:
+1. ceph integration with config merge feature for:
+   - nova
+   - cinder
+   - glance
+   - manila
+   - gnochi
 
-Tag change process on controllers:
+Ceph integration files are available in this directory in etc folder.
+This files are placed in /etc/kolla/config directory when installation.
 
-[root@labctl1 ~]# docker images|grep -i kibana
-kolla/centos-source-kibana                       queens              dedb6e66dfc3        20 hours ago        570MB
-kolla/centos-source-kibana                       rocky               804b3603a01c        20 hours ago        630MB
+2. This branch also use custom ml2conf.ini configuration for custom
+   bridge mappings on labnet1 node. Config files are available in this directory
+   in etc directory however on real it goes into /etc/kolla/config/neutron dirs
 
-[root@labctl1 ~]# docker rmi 804b3603a01c
+3. This branch excutes installation successfully however functional testing is pending.
 
-[root@labctl1 ~]# docker tag kolla/centos-source-kibana:queens kolla/centos-source-kibana:rock
-
-Same applies for elasticsearch tag change.
-
-
+4. Next branch will be dedicated to functional testing.
