@@ -152,24 +152,24 @@ notify_transport_url: "{{ om_notify_transport }}://{% for host in groups[om_noti
 #
 neutron_public_interface: "pub_core"
 neutron_dmz_interface: "dmz_core"
-neutron_internal_interface: "int_core1, int_core2"
+neutron_internal_interface: "int_core1"
 neutron_optional_external_interface: "ext_core"
 #
 neutron_public_ovs_bridge_name: "br-pub_core"
 neutron_dmz_ovs_bridge_name: "br-dmz_core"
-neutron_internal_ovs_bridge_name: "br_int_core1,br-int_core2"
+neutron_internal_ovs_bridge_name: "br_int_core1"
 neutron_optional_external_ovs_bridge_name: "br-ext_core"
 #
 #
 enable_vlan: true
 #
 vlan_provider_names: 
-  - dmz_core
   - int_core1
   - int_core2
 
 flat_provider_names: 
   - pub_core
+  - dmz_core
 
 #all_net_providers:
 #  br-ex: flat_net1
