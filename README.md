@@ -21,4 +21,5 @@ openstack subnet create --network mynet --subnet-range 172.16.16.0/24 --allocati
 openstack security group list
 
 openstack security group rule create --proto tcp --dst-port 22 <security-group-id>
+
 openstack security group rule create --proto icmp <security-group-id>
