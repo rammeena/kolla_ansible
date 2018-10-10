@@ -1,18 +1,24 @@
-This kolla-ansible branch install openstack Queens with:
+This kolla-ansible fully function verified install openstack Queens with:
 1. ceph integration with config merge feature for:
    - nova
    - cinder
    - glance
    - manila
-   - gnochi
+   - gnochi - not verified
 
-Ceph integration files are available in this directory in etc folder.
-This files are placed in /etc/kolla/config directory when installation.
+=============================================================================
+openstack keypair create --public-key ~/.ssh/id_rsa.pub mykey
+openstack flavor create --id 0 --vcpus 2 --ram 1024 --disk 10 m1.nano
 
-2. This branch also use custom ml2conf.ini configuration for custom
-   bridge mappings on labnet1 node. Config files are available in this directory
-   in etc directory however on real it goes into /etc/kolla/config/neutron dirs
+openstack image create "centos" --file /home/iso/CentOS-7-x86_64-GenericCloud-1808.qcow2 --disk-format qcow2 --container-format bare --public
 
-3. This branch excutes installation successfully however functional testing is pending.
+ openstack image create "cirros" --file /home/iso/cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --public
 
-4. Next branch will be dedicated to functional testing.
+openstack network create --provider-network-type flat --provider-physical-network dmz_core mynet
+
+openstack subnet create --network mynet --subnet-range 172.16.16.0/24 --allocation-pool start=172.16.16.100,end=172.16.16.250 --gateway 172.16.16.1 my-subnet
+
+openstack security group list
+
+openstack security group rule create --proto tcp --dst-port 22 <security-group-id>
+openstack security group rule create --proto icmp <security-group-id>
