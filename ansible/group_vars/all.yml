@@ -151,8 +151,19 @@ notify_transport_url: "{{ om_notify_transport }}://{% for host in groups[om_noti
 ####################
 # Networking options
 ####################
-network_interface: "eth0"
-neutron_external_interface: "eth1"
+network_interface: "infra_core"
+neutron_external_interface: "ext_core"
+neutron_internal_interface: "int_core"
+neutron_external_ovs_bridge: "br_ext_core"
+neutron_internal_ovs_bridge: "br_int_core"
+enable_vlan: true
+vlan_provider_names:
+  - ext_net
+flat_provider_names:
+  - int_net
+all_net_providers:
+  br_ext_core: ext_net
+  br_int_core: int_net
 kolla_external_vip_interface: "{{ network_interface }}"
 api_interface: "{{ network_interface }}"
 storage_interface: "{{ network_interface }}"

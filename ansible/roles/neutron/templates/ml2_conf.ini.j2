@@ -45,7 +45,9 @@ password = {{ onos_password }}
 
 [ml2_type_vlan]
 {% if enable_ironic | bool %}
-network_vlan_ranges = physnet1
+network_vlan_ranges = {{ vlan_providers|join(',') }}
+{% elif enable_vlan %}
+network_vlan_ranges = {{ vlan_provider_names|join(',') }}
 {% else %}
 network_vlan_ranges =
 {% endif %}
@@ -54,7 +56,7 @@ network_vlan_ranges =
 {% if enable_ironic | bool %}
 flat_networks = *
 {% else %}
-flat_networks = {% for bridge in neutron_bridge_name.split(',') %}physnet{{ loop.index0 + 1 }}{% if not loop.last %},{% endif %}{% endfor %}
+flat_networks = {{ flat_provider_names|join(',') }}
 {% endif %}
 
 [ml2_type_vxlan]
@@ -85,8 +87,17 @@ extensions = {{ neutron_agent_extensions|map(attribute='name')|join(',') }}
 {% endif %}
 
 [ovs]
-{% if inventory_hostname in groups["network"] or (inventory_hostname in groups["compute"] and computes_need_external_bridge | bool ) %}
-bridge_mappings = {% for bridge in neutron_bridge_name.split(',') %}physnet{{ loop.index0 + 1 }}:{{ bridge }}{% if not loop.last %},{% endif %}{% endfor %}
+{% if inventory_hostname in groups["common-compute"] %}
+bridge_mappings = {% for br in neutron_external_ovs_bridge.split(',') + neutron_internal_ovs_bridge.split(',') %}{{ all_net_providers[br] }}:{{ br }}{% if not loop.last %},{% endif %}{% endfor %}
+{% endif %}
+{% if inventory_hostname in groups["inner-compute"] %}
+bridge_mappings = {% for br in neutron_internal_ovs_bridge.split(',') %}{{ all_net_providers[br] }}:{{ br }}{% if not loop.last %},{% endif %}{% endfor %}
+{% endif %}
+{% if inventory_hostname in groups["external-compute"] %}
+bridge_mappings = {% for br in neutron_external_ovs_bridge.split(',') %}{{ all_net_providers[br] }}:{{ br }}{% if not loop.last %},{% endif %}{% endfor %}
+{% endif %}
+{% if inventory_hostname in groups["network"] %}
+bridge_mappings = {% for br in neutron_external_ovs_bridge.split(',') + neutron_internal_ovs_bridge.split(',') %}{{ all_net_providers[br] }}:{{ br }}{% if not loop.last %},{% endif %}{% endfor %}
 {% endif %}
 
 {# NOTE: newline above is required for correct config generation. Do not remove. #}
